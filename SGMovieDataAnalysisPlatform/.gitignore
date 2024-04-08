@@ -1,4 +1,4 @@
 .idea
 */__pycache__/*
 */migrations/*
-config/conf.ini
+./config/conf.ini
