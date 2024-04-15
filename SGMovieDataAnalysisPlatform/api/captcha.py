@@ -17,6 +17,7 @@ def generate_code():
     return code
 
 
+# 验证码
 def get_code(request):
 
     mode = "RGB"    # 颜色模式

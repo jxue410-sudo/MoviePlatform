@@ -5,7 +5,7 @@ from api.response import JsonError, JsonResponse
 from .models import districts
 
 
-# 查询地址api
+# 查询地址api 获取地址信息关联
 class findByParent(APIView):
     def get(self, request, *args, **kwargs):
         districts_parent = request.GET.get("parent")

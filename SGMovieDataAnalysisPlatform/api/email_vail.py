@@ -9,6 +9,7 @@ from django.db.models import Q
 import string, random, time, re
 
 
+# 发送邮箱验证码
 class send_reg_email(APIView):
     def get(self, request, *args, **kwargs):
         return JsonError("不支持Get请求！")

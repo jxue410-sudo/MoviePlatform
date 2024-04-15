@@ -24,7 +24,7 @@ get_ip = api.Api().get_ip
 tag_thread_work = delay_work.tag_thread_work
 
 
-# Create your views here.
+# 搜索
 def movie_search(request):
     return JsonResponse(movie_search_api(request))
 
@@ -94,7 +94,7 @@ class MovieLike(APIView):
         return JsonError("不支持POST请求！")
 
 
-# 电影评论
+# 添加电影评论
 class MovieComment(APIView):
     def get(self, request, *args, **kwargs):
         return JsonError("不支持GET请求！")

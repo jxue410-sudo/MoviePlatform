@@ -44,6 +44,7 @@ default_tag = ["动作", "科幻", "爱情", "喜剧"]
 # data = dict()
 
 
+# 首页
 def index(request):
     cookie_uuid = request.COOKIES.get("uuid")
 
@@ -85,17 +86,20 @@ def index(request):
     return response
 
 
+# 注册
 def register(request):
     data = page_nav(request)
     data['user_hobbies'] = getHobbiesTag()
     return render(request, 'register.html', {"page": "register.html", "data": data})
 
 
+# 分类
 def category(request):
     data = page_nav(request)
     return render(request, 'category.html', {"page": "category.html", "data": data})
 
 
+# 搜索
 def search(request):
     data = page_nav(request)
     data["movie_data"] = json.dumps(movie_search(request))
@@ -108,6 +112,7 @@ def search(request):
     return response
 
 
+# 电影详情
 def movie(request):
     user_id = request.session.get("user_id") if request.session.get("user_id") else 2
     movie_id = request.GET.get("id")
