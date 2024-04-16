@@ -291,3 +291,8 @@ def page_nav(request):
         rs["user_5_brow"] = get_visiter_movie_5_brow(request.COOKIES.get("uuid"))
         rs["user_5_cai"] = []
     return rs
+
+# 数据大屏展示
+def dataAnalysisShow(request):
+
+    return render(request, 'dataAnalysisShow.html')
