@@ -6,7 +6,7 @@ from requests.exceptions import RequestException
 from datetime import datetime
 
 
-def fetch_data(url, headers, retries=3, timeout=5):
+def fetch_data(url, headers, retries=5, timeout=30):
     for _ in range(retries):
         try:
             response = requests.get(url, headers=headers, timeout=timeout)
