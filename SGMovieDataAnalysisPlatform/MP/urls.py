@@ -28,9 +28,10 @@ urlpatterns = [
     path('movie.html', views.movie),    # 电影详情
     path('userInfo.html', views.user_info),    # 用户中心
     path('forgetPwd.html', views.foget_password),    # 忘记密码
-    path('modifyPwd.html', views.modify_password),    # 修改密码
+    path('modifyPwd.html', views.modify_password),   # 修改密码
     path('modifyEmail.html', views.modify_email),    # 修改邮箱
     path('userCollection.html', views.user_collection),    # 收藏管理
     path('userComment.html', views.user_comment),    # 评论管理
+    path('dataAnalysisShow.html', views.dataAnalysisShow),    # 数据大屏展示
 
 ]
