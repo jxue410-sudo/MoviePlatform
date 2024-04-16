@@ -66,10 +66,10 @@ class Movie:
 
         _count = 0
         if movie_type == 'new':
-            movie_search_rs = self.get_movie_douban_new(page, limit)
+            movie_search_rs = self.get_movie_shiguang_new(page, limit)
             _count = movie_obj
         elif movie_type == 'top':
-            movie_search_rs = self.get_movie_douban_top(page, limit)
+            movie_search_rs = self.get_movie_shiguang_top(page, limit)
             _count = movie_obj
         elif movie_type == 'title':
             movie_search_rs = movie_obj.filter(Q(title__contains=key) | Q(original_title__contains=key))
@@ -283,29 +283,29 @@ class Movie:
         return visiter_movie_5_like_rs_json
 
     # 获取最新的5部电影
-    def get_movie_douban_new(self, page=1, num=5):
+    def get_movie_shiguang_new(self, page=1, num=5):
 
-        movie_douban_new_rs_json = get_readis("movie_new"+"_"+str(page)+"_"+str(num))
-        if movie_douban_new_rs_json:
-            return movie_douban_new_rs_json
+        movie_shiguang_new_rs_json = get_readis("movie_new"+"_"+str(page)+"_"+str(num))
+        if movie_shiguang_new_rs_json:
+            return movie_shiguang_new_rs_json
 
-        movie_douban_new_rs = MoviePubdateDB.objects.order_by("-pubdate").filter(pubdate__lte=datetime.datetime.now()
+        movie_shiguang_new_rs = MoviePubdateDB.objects.order_by("-pubdate").filter(pubdate__lte=datetime.datetime.now()
                                                                                  .strftime('%Y-%m-%d')).all()
-        movie_douban_new_rs_list = list(movie_douban_new_rs.values_list("movie_id", flat=True)
+        movie_shiguang_new_rs_list = list(movie_shiguang_new_rs.values_list("movie_id", flat=True)
                                         [(int(page) - 1) * int(num):int(page) * int(num)])
         # 去重
-        # movie_douban_new_rs_list = reduce(lambda x, y: x if y in x else x + [y], [[], ] + movie_douban_new_rs_list)
+        # movie_shiguang_new_rs_list = reduce(lambda x, y: x if y in x else x + [y], [[], ] + movie_shiguang_new_rs_list)
         # movie_search_rs = CollectMovieDB.objects.filter(movie_id__in=user_movie_5_brow_rs_list[:5]).all()
         # movie_search_rs_json = queryset_to_json(movie_search_rs)
-        movie_douban_new_rs = []
-        for movie_id in movie_douban_new_rs_list:
-            movie_douban_new_rs.append(self.movie_search_by_id(movie_id))
+        movie_shiguang_new_rs = []
+        for movie_id in movie_shiguang_new_rs_list:
+            movie_shiguang_new_rs.append(self.movie_search_by_id(movie_id))
         # movie_search_rs_json = serializers.serialize('json', user_movie_5_brow_rs)
-        movie_douban_new_rs_json = movie_douban_new_rs
+        movie_shiguang_new_rs_json = movie_shiguang_new_rs
 
-        set_readis("movie_new"+"_"+str(page)+"_"+str(num), movie_douban_new_rs_json)
+        set_readis("movie_new"+"_"+str(page)+"_"+str(num), movie_shiguang_new_rs_json)
 
-        return movie_douban_new_rs_json
+        return movie_shiguang_new_rs_json
 
     # 获取指定标签电影
     @staticmethod
@@ -344,85 +344,31 @@ class Movie:
 
         return index_tag_movie_rs_json
 
-    # 获取豆瓣高分10部电影
-    def get_movie_douban_top(self, page=1, num=10):
+    # 获取时光网高分10部电影
+    def get_movie_shiguang_top(self, page=1, num=10):
 
-        movie_douban_top_rs_json = get_readis("movie_top"+"_"+str(page)+"_"+str(num))
-        if movie_douban_top_rs_json:
-            return movie_douban_top_rs_json
+        movie_shiguang_top_rs_json = get_readis("movie_top"+"_"+str(page)+"_"+str(num))
+        if movie_shiguang_top_rs_json:
+            return movie_shiguang_top_rs_json
 
-        movie_douban_top_rs = MovieRatingDB.objects.order_by("-rating").all()
-        movie_douban_top_rs_list = list(movie_douban_top_rs.values_list("movie_id", flat=True)
+        movie_shiguang_top_rs = MovieRatingDB.objects.order_by("-rating").all()
+        movie_shiguang_top_rs_list = list(movie_shiguang_top_rs.values_list("movie_id", flat=True)
                                         [(int(page) - 1) * int(num):int(page) * int(num)])
         # 去重
-        # movie_douban_top_rs_list = reduce(lambda x, y: x if y in x else x + [y], [[], ] +
-        #                                   movie_douban_top_rs_list)[:num]
+        # movie_shiguang_top_rs_list = reduce(lambda x, y: x if y in x else x + [y], [[], ] +
+        #                                   movie_shiguang_top_rs_list)[:num]
         # movie_search_rs = CollectMovieDB.objects.filter(movie_id__in=user_movie_5_brow_rs_list[:5]).all()
         # movie_search_rs_json = queryset_to_json(movie_search_rs)
-        movie_douban_top_rs = []
-        for movie_id in movie_douban_top_rs_list:
-            movie_douban_top_rs.append(self.movie_search_by_id(movie_id))
+        movie_shiguang_top_rs = []
+        for movie_id in movie_shiguang_top_rs_list:
+            movie_shiguang_top_rs.append(self.movie_search_by_id(movie_id))
         # movie_search_rs_json = serializers.serialize('json', user_movie_5_brow_rs)
-        movie_douban_top_rs_json = movie_douban_top_rs
+        movie_shiguang_top_rs_json = movie_shiguang_top_rs
 
-        set_readis("movie_top"+"_"+str(page)+"_"+str(num), movie_douban_top_rs_json)
+        set_readis("movie_top"+"_"+str(page)+"_"+str(num), movie_shiguang_top_rs_json)
 
-        return movie_douban_top_rs_json
+        return movie_shiguang_top_rs_json
 
-    # 爬取豆瓣的信息
-    @staticmethod
-    def movie_search_by_web(movie_id):
-        if not movie_id:
-            return {}
-
-        url = 'https://movie.douban.com/subject/' + str(movie_id) + '/'
-        # https://movie.douban.com/j/subject_abstract?subject_id=34603816
-        try:
-            headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) '
-                              'Chrome/62.0.3202.94 Safari/537.36'}
-            html = requests.get(url, headers=headers, timeout=10)
-        except Exception as e:
-            print(e)
-            return {"status": 0, "message": "获取失败！' + str(e) + '", "data": {}}
-            # break
-        if html.status_code == 404:
-            return {"status": 0, "message": "获取失败，不存在有关信息！", "data": {}}
-        data = {}
-        soup = BeautifulSoup(html.text.encode("utf-8"), features='html.parser')
-        soup = soup.find(name='div', attrs={'id': 'wrapper'})
-        # print(soup.h1.span.string)
-        data['title'] = soup.h1.span.string  # 标题
-        article = soup.find(name='div', attrs={'class': 'subjectwrap'})
-        data['article'] = str(article)  # 信息
-        summ = soup.find(name='div', attrs={'id': 'link-report'})
-        summary = summ.find(name='span', attrs={'class': 'short'})
-        if summary:
-            summary = str(summary)
-        else:
-            summary = str(summ)
-        data['summary'] = str(summary)  # 简述内容简介
-        all_summary = soup.find(name='span', attrs={'class': 'all hidden'})
-        data['allSummary'] = str(all_summary)  # 内容简介
-        if type == 'book':
-            intro = soup.find(text='作者简介')
-            if intro:
-                try:
-                    data['info'] = str(intro.parent.parent.next_sibling.next_sibling.div.div.text)  # 作者简介
-                except Exception as ex:
-                    print(ex)
-                    data['info'] = str(intro.parent.parent.next_sibling.next_sibling.span.div.text)  # 作者简介
-                    pass
-            # print(data['info'])
-            tag = soup.find(name='div', attrs={'id': 'db-tags-section'})
-            tags = [td.a.string for td in tag.div.find_all('span')]
-        else:
-            tag = soup.find(name='div', attrs={'class': 'tags-body'})
-            tags = [td.string for td in tag.find_all('a')]
-        data['tags'] = tags  # 标签
-
-        # data = json.dumps(data)
-        return {"status": 1, "message": "获取成功！", "data": str(data), "url": str(url)}
 
     # 返回对应类别的movie_id
     @staticmethod

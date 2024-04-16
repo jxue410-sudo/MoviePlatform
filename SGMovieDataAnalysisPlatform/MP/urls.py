@@ -24,7 +24,6 @@ urlpatterns = [
     path('', views.index),    # 首页
     path('index.html', views.index),    # 首页
     path('register.html', views.register),    # 注册
-    path('category.html', views.category),    # 分类
     path('search.html', views.search),    # 搜索
     path('movie.html', views.movie),    # 电影详情
     path('userInfo.html', views.user_info),    # 用户中心

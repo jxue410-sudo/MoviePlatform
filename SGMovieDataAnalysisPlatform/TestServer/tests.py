@@ -102,7 +102,6 @@ class Transfer(object):
 
 def get():
     url = 'https://movie.douban.com/subject/' + str(34434000) + '/'
-    # https://movie.douban.com/j/subject_abstract?subject_id=34603816
     try:
         headers = {
             'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/62.0.3202.94 Safari/537.36'}

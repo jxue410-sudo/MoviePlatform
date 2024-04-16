@@ -23,27 +23,6 @@ class CollectMovieTypeDB(models.Model):
     def toDict(self):
         return model_json.model_to_json(self)
 
-
-# class MovieBase(models.Model):
-#     movie_id = models.IntegerField(unique=True, null=False,verbose_name=u"电影ID")  # 唯一标识
-#     original_title = models.CharField(max_length=1000, unique=True, null=False, default='',
-#                                       verbose_name=u"原始标题")  # 原始标题
-#     title = models.CharField(max_length=1000, unique=True, null=False, default='', verbose_name=u"中文标题")  # 中文标题
-#     aka = models.CharField(max_length=1000, default='',verbose_name=u"又名")  # 又名
-#     average_rating = models.IntegerField(default=0,verbose_name=u"平均评分")  # 评分数
-#     ratings_count = models.IntegerField(default=0, verbose_name=u"评分数")  # 评分数
-#     pubdate = models.DateField(unique=True, null=False, default='', verbose_name=u"上映日期")  # 上映日期
-#     year = models.IntegerField(unique=True, null=False, default=0, verbose_name=u"年份")  # 年份
-#     countries = models.CharField(max_length=1000, default='', verbose_name=u"制片国家/地区")  # 制片国家/地区
-#     tags = models.CharField(max_length=1000, default='', verbose_name=u"标签")  # 标签
-#     genres = models.CharField(max_length=1000, default='', verbose_name=u"类型")  # 类型
-#     collect_count = models.IntegerField(default=0, verbose_name=u"收藏")  # 收藏
-#     images = models.TextField(default='',verbose_name=u"封面图片")  # 封面图片
-#     photos = models.TextField(default='',verbose_name=u"照片")  # 照片
-#     languages = models.CharField(max_length=1000, default='',verbose_name=u"语言")  # 语言
-#     actor = models.TextField(default='', verbose_name=u"演员")  # 演员
-#     record_time = models.DateTimeField(auto_now_add=True,verbose_name=u"录入时间")
-
 # 电影详情数据
 class CollectMovieDB(models.Model):
     movie_id = models.IntegerField(unique=True, null=False, verbose_name=u"电影ID")  # 唯一标识
@@ -87,7 +66,7 @@ class CollectMovieDB(models.Model):
         return model_json.model_to_json(self)
 
 
-# 豆瓣前250电影
+# 时光网前250电影
 class CollectTop250MovieDB(models.Model):
     movie_id = models.IntegerField(unique=True, null=False, verbose_name=u"电影ID")
     movie_title = models.TextField(default='', verbose_name=u"中文标题")
@@ -109,7 +88,7 @@ class CollectTop250MovieDB(models.Model):
                                                 self.movie_pubdates, self.movie_genres, self.movie_actor)
 
     class Meta:
-        verbose_name = '豆瓣前250电影'
+        verbose_name = '时光网前250电影'
         verbose_name_plural = verbose_name
 
     # 将属性和属性值转换成dict 列表生成式
@@ -117,7 +96,7 @@ class CollectTop250MovieDB(models.Model):
         return model_json.model_to_json(self)
 
 
-# 豆瓣电影评分表
+# 时光网电影评分表
 class MovieRatingDB(models.Model):
     rating = models.DecimalField(max_digits=4, decimal_places=2, verbose_name='评分分数')
     movie_id = models.OneToOneField(CollectMovieDB, unique=True, to_field="movie_id", verbose_name='电影',
@@ -127,7 +106,7 @@ class MovieRatingDB(models.Model):
         return '%s - %s' % (self.movie_id.title, self.rating)
 
     class Meta:
-        verbose_name = '豆瓣电影评分表'
+        verbose_name = '时光网电影评分表'
         verbose_name_plural = verbose_name
 
     # 将属性和属性值转换成dict 列表生成式
@@ -135,7 +114,7 @@ class MovieRatingDB(models.Model):
         return model_json.model_to_json(self)
 
 
-# 豆瓣电影上映日期表
+# 时光网电影上映日期表
 class MoviePubdateDB(models.Model):
     movie_id = models.OneToOneField(CollectMovieDB, unique=True, to_field="movie_id", verbose_name='电影',
                                     on_delete=models.CASCADE)
@@ -145,7 +124,7 @@ class MoviePubdateDB(models.Model):
         return '%s - %s' % (self.movie_id.title, self.pubdate)
 
     class Meta:
-        verbose_name = '豆瓣电影上映时间表'
+        verbose_name = '时光网电影上映时间表'
         verbose_name_plural = verbose_name
 
     # 将属性和属性值转换成dict 列表生成式
@@ -276,160 +255,3 @@ class MovieComments(models.Model):
     def toDict(self):
         return model_json.model_to_json(self)
 
-
-# class CollectMovieReviewsDB(models.Model):
-#     reviews_id = models.IntegerField(unique=True, null=False,default=0,verbose_name=u"长评唯一标识")
-#     reviews_movid_id = models.OneToOneField(CollectMovieDB, on_delete=models.CASCADE,verbose_name=u"电影唯一标识")
-#     reviews_rating = models.IntegerField(default=0,verbose_name=u"评分")
-#     reviews_useful_count = models.IntegerField(default=0,verbose_name=u"认为有用的评论")
-#     reviews_content = models.TextField(default='',verbose_name=u"评论完整内容")
-#     reviews_author_uid = models.TextField(default='',verbose_name=u"评论作者账号")
-#     reviews_author_id = models.IntegerField(default=0,verbose_name=u"评论作者id")
-#     reviews_author_name = models.TextField(default='',verbose_name=u"评论者昵称")
-#     reviews_title = models.TextField(default='',verbose_name=u"评论标题")
-#     reviews_share_url = models.TextField(default='',verbose_name=u"评论url")
-#     reviews_summary = models.TextField(default='',verbose_name=u"评论简述内容")
-#     reviews_useless_count = models.IntegerField(default=0,verbose_name=u"认为是无用的评论")
-#     reviews_comments_count = models.IntegerField(default=0,verbose_name=u"评论数")
-#     reviews_time = models.DateTimeField(auto_now_add=True,verbose_name=u"评论时间")
-#
-#     # 将属性和属性值转换成dict 列表生成式
-#     def toDict(self):
-#         return model_json.model_to_json(self)
-#
-#
-# class MovieInfo(models.Model):
-#     RATING_RANGE = (
-#         MaxValueValidator(5),
-#         MinValueValidator(0)
-#     )
-#     # moviename = models.CharField(max_length=1000, default='', verbose_name='电影名称')
-#     # showyear = models.DateField(default=datetime.now, verbose_name='上映年份', null=True, blank=True)
-#     # nation = models.CharField(max_length=255, default='', verbose_name='国家', null=True, blank=True)
-#     # director = models.CharField(max_length=1000, default='', verbose_name='导演', null=True, blank=True)
-#     # leadactors = models.CharField(max_length=1000, default='', verbose_name='主演', null=True, blank=True)
-#     # screenwriter = models.CharField(max_length=255, default='', verbose_name='编剧', null=True, blank=True)
-#     # picture = models.URLField(max_length=1000, verbose_name='海报', null=True, blank=True)
-#     # averating = models.FloatField(default='', validators=RATING_RANGE, verbose_name='评分', null=True, blank=True)
-#     # numrating = models.IntegerField( default=0, verbose_name='评分人数', null=True, blank=True)
-#     # description = models.CharField(max_length=1000, default='', verbose_name='简介', null=True, blank=True)
-#     # typelist = models.CharField(max_length=255, default='', verbose_name='类型', null=True, blank=True)
-#     # backpost = models.CharField(max_length=15000, default='', null=True, blank=True)
-#     moviename = models.CharField(max_length=1000, default='', verbose_name='电影名称')
-#     # showyear = models.CharField(max_length=10, verbose_name='上映年份', null=True, blank=True)
-#     releasedate = models.DateField(default=datetime.datetime.now, verbose_name='上映年份', null=True, blank=True)
-#     nation = models.CharField(max_length=255, default='', verbose_name='国家', null=True, blank=True)
-#     directors = models.CharField(max_length=1000, default='', verbose_name='导演', null=True, blank=True)
-#     leadactors = models.CharField(max_length=1000, default='', verbose_name='主演', null=True, blank=True)
-#     editors = models.CharField(max_length=255, default='', verbose_name='编剧', null=True, blank=True)
-#     picture = models.URLField(max_length=1000, verbose_name='海报', null=True,
-#                               blank=True,default='/static/images/t3.jpg')
-#     averating = models.FloatField(default=0, validators=RATING_RANGE, verbose_name='评分', null=True, blank=True)
-#     numrating = models.IntegerField(default=0, verbose_name='评分人数', null=True, blank=True)
-#     description = models.TextField(default='', verbose_name='简介', null=True, blank=True)
-#     typelist = models.ManyToManyField(MovieCategory, verbose_name='类型')
-#     backpost = models.CharField(max_length=3000, default='', null=True, blank=True)
-#
-#
-# class MovieCategory(models.Model):
-#     category = models.CharField(max_length=100, default='', verbose_name='电影类型')
-#     movienum = models.IntegerField(default=0, verbose_name='电影数量')
-#
-#     def __str__(self):
-#         return self.category
-#
-#     class Meta:
-#         verbose_name = '电影类型'
-#         verbose_name_plural = verbose_name
-#
-#
-# class MovieSimilar(models.Model):
-#     item1 = models.IntegerField(default=0, verbose_name='电影id')
-#     item2 = models.IntegerField(default=0, verbose_name='电影id')
-#
-#     # item1 = models.ForeignKey(MovieInfo, verbose_name='电影', on_delete=models.CASCADE)
-#     # item2 = models.ForeignKey(MovieInfo, verbose_name='电影', on_delete=models.CASCADE)
-#     similar = models.FloatField(default=0, verbose_name='相似度')
-#
-#     def __str__(self):
-#         return '%d - %d - %lf' % (self.item1, self.item2, self.similar)
-#
-#     class Meta:
-#         verbose_name = '电影相似度信息'
-#         verbose_name_plural = verbose_name
-#
-#
-# class Review(models.Model):
-#     STAR_RANGE = [
-#         MaxValueValidator(5),
-#         MinValueValidator(0)
-#     ]
-#     user = models.ForeignKey(UsersBase, verbose_name='用户', on_delete=models.CASCADE)
-#     movie = models.ForeignKey(CollectMovieDB, verbose_name='电影', on_delete=models.CASCADE)
-#     content = models.TextField(max_length=255, default='', verbose_name='评论', null=True, blank=True)
-#     star = models.FloatField(default=0, validators=STAR_RANGE, verbose_name='星级')
-#     reviewtime = models.DateTimeField(default=datetime.datetime.now, verbose_name='提交时间')
-#
-#     def __str__(self):
-#         return '%s - %s - %lf' % (self.user.user_name, self.movie.title, self.star)
-#
-#     class Meta:
-#         verbose_name = '用户回执'
-#         verbose_name_plural = verbose_name
-#
-#
-# class Default5Recommend(models.Model):
-#     movie = models.ForeignKey(CollectMovieDB, verbose_name='电影', on_delete=models.CASCADE)
-#     # movie = models.IntegerField(default=0, verbose_name='电影id')
-#     redate = models.DateField(default=datetime.datetime.now, verbose_name='推荐时间')
-#
-#     def __str__(self):
-#         return str(self.movie_id)
-#
-#     class Meta:
-#         verbose_name = '默认电影推荐'
-#         verbose_name_plural = verbose_name
-#
-#
-# class Top5Recommend(models.Model):
-#     # movieid = models.IntegerField(default=0, verbose_name='电影id')
-#     # userid = models.IntegerField(default=0, verbose_name='用户id')
-#     movie = models.ForeignKey(CollectMovieDB, verbose_name='电影', on_delete=models.CASCADE)
-#     user = models.ForeignKey(UsersBase, verbose_name='用户', on_delete=models.CASCADE)
-#     rating = models.FloatField(default=0, verbose_name='评分')
-#
-#     def __str__(self):
-#         return '%s - %s -%lf' % (self.user, self.movie, self.rating)
-#         # return '%s - %s -%lf' % (self.userid, self.movieid, self.rating)
-#
-#     class Meta:
-#         verbose_name = '用户推荐信息'
-#         verbose_name_plural = verbose_name
-#
-#
-# class Rating(models.Model):
-#     RATING_RANGE = (
-#         MaxValueValidator(5),
-#         MinValueValidator(0)
-#     )
-#     movie = models.ForeignKey(CollectMovieDB, verbose_name='电影', on_delete=models.CASCADE)
-#     user = models.ForeignKey(UsersBase, verbose_name='用户', on_delete=models.CASCADE)
-#     rating = models.FloatField(default=0, validators=RATING_RANGE, verbose_name='评分', null=True, blank=True)
-#     ds = models.BigIntegerField(default=time.mktime(datetime.datetime.now().timetuple()), verbose_name='时间戳')
-#
-#     def __str__(self):
-#         return '%s - %s - %lf' % (self.user, self.movie, self.rating)
-#
-#     class Meta:
-#         verbose_name = '用户评分'
-#         verbose_name_plural = '用户评分'
-#
-#
-# class AlsTable(models.Model):
-#     RATING_RANGE = (
-#         MaxValueValidator(5),
-#         MinValueValidator(0)
-#     )
-#     user = models.ForeignKey(UsersBase, verbose_name='用户', on_delete=models.CASCADE)
-#     movie = models.ForeignKey(CollectMovieDB, verbose_name='电影', on_delete=models.CASCADE)
-#     rating = models.FloatField(default=0, validators=RATING_RANGE, verbose_name='评分', null=True, blank=True)

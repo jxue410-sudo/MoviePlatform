@@ -23,6 +23,7 @@ let images = strToJson(movie_data.images);  //封面
 let rating = strToJson(movie_data.rating);  //评分
 let ratings_count = movie_data.ratings_count;  //评分人数
 
+// 类型 标签 语言 地区
 function For1(for_name,for_type, for_list) {
     var for_txt = "";
     if(for_list.length!=0) {
@@ -34,6 +35,8 @@ function For1(for_name,for_type, for_list) {
     }
     return for_txt;
 }
+
+// 又名 上映 片长
 function For2(for_name,for_type, for_list) {
     var for_txt = "";
     if(for_list.length!=0) {
@@ -45,25 +48,19 @@ function For2(for_name,for_type, for_list) {
     }
     return for_txt;
 }
+
+// 导演 编剧 主演
 function For3(for_name,for_type, for_list) {
     var for_txt = "";
     if(for_list.length!=0) {
         for_txt = "<li><span class='li_name'>" + for_name + "</span>：";
+        // 同时显示中文name 和 英文名name_en  并包含鼠标悬停标题span title
         for (let i = 0; i < for_list.length; i++) {
-            for_txt = for_txt + '<a target="_blank" href="'+for_list[i]["alt"]+'" ><span title="' + for_list[i]["name"] + '">' + for_list[i]["name"] + '</span> <span title="' + for_list[i]["name_en"] + '">' + for_list[i]["name_en"] + '</span></a> ';
+            for_txt = for_txt + '<span title="' + for_list[i]["name"] + '">' + for_list[i]["name"] + '</span> <span title="' + for_list[i]["name_en"] + '">' + for_list[i]["name_en"] + '</span> ';
         }
         for_txt = for_txt + "</li>";
     }
     return for_txt;
-}
-
-var videos_txt = "";
-if(videos.length!=0) {
-    videos_txt = "<li><span class='li_name'>视频</span>：<div class=\"movie_video\">";
-    for (let i = 0; i < videos.length; i++) {
-        videos_txt = videos_txt + '<a target="_blank" title="'+videos[i]["source"]["name"]+'" href="'+videos[i]["sample_link"]+'" ><img alt="'+videos[i]["source"]["name"]+'" src="'+videos[i]["source"]["pic"]+'" ></a>';
-    }
-    videos_txt = videos_txt + "</div></li>";
 }
 
 let genres_txt = For1("类型","genres",genres);
@@ -79,18 +76,18 @@ let directors_txt = For3("导演","directors",directors);
 let writers_txt = For3("编剧","writers",writers);
 let actor_txt = For3("主演","actor",actor);
 
-let rating_txt = '<li><span class=\'li_name\'>豆瓣</span>：<a class="dbpingfen" rel="nofollow" href="https://movie.douban.com/subject/'+ movie_id +'/" title="在豆瓣查看评分" target="_blank">'+rating['average']+'分</a> from '+ratings_count+' users </li>';
+let rating_txt = '<li><span class=\'li_name\'>评分</span>：'+rating['average']+'分 from '+ratings_count+' users </li>';
 let summary_txt = '<li><span class=\'li_name\'>简介</span>：'+summary+ "</li>";
 let year_txt = '<li><span class=\'li_name\'>年份</span>：<a href="search.html?type=year&s='+ year +'">'+year+ "</a></li>";
 
 let photos_txt = '<li style="margin-top:20px;"><span class=\'li_name\'>剧照</span>：<div style="width:100%;" class="movie_photos">';
 for (let i = 0; i < photos.length; i++) {
-    photos_txt  = photos_txt + '<a target="_blank" href="'+ photos[i]["alt"] +'"><img src="' + photos[i]["thumb"] + '" noreferer="" /></a> ';
+    photos_txt  = photos_txt + '<img src="' + photos[i]["thumb"] + '" noreferer="" /> ';
 }
 photos_txt  = photos_txt + "</div></li>";
 
 moviedteail_list = moviedteail_list + genres_txt + countries_txt + year_txt + languages_txt +aka_txt + tags_txt + pubdates_txt+ durations_txt + directors_txt +
-    writers_txt + actor_txt + rating_txt + videos_txt +  '<li><span class="li_name">评分</span>：' +
+    writers_txt + actor_txt + rating_txt +  '<li><span class="li_name">请您打分</span>：' +
     '<div id="movie_star_wrapper">\n' +
     '<input type="radio" id="star1" name="star" value="1"/>\n' +
     '<label for="star1"></label>\n' +

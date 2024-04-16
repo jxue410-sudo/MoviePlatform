@@ -21,7 +21,6 @@ getUserPreferTag = User.getUserPreferTag
 
 movie_search = Movie.movie_search
 movie_search_by_id = Movie.movie_search_by_id
-movie_search_by_web = Movie.movie_search_by_web
 
 get_user_movie_comment = Movie.get_user_movie_comment
 get_movie_comment = Movie.get_movie_comment
@@ -36,8 +35,8 @@ get_movie_5_cai = Movie.get_movie_5_cai
 get_user_movie_5_cai = Movie.get_user_movie_5_cai
 get_visiter_movie_5_brow = Movie.get_visiter_movie_5_brow
 get_user_like = Movie.get_user_like
-get_movie_douban_top = Movie.get_movie_douban_top
-get_movie_douban_new = Movie.get_movie_douban_new
+get_movie_shiguang_top = Movie.get_movie_shiguang_top
+get_movie_shiguang_new = Movie.get_movie_shiguang_new
 get_index_tag_movie = Movie.get_index_tag_movie
 
 default_tag = ["动作", "科幻", "爱情", "喜剧"]
@@ -52,9 +51,9 @@ def index(request):
     data = page_nav(request)
     data["index_focus"] = api.Api().index_focus()
     # 获取前十个高分电影
-    data["movie_douban_top"] = get_movie_douban_top(1, 10)
+    data["movie_shiguang_top"] = get_movie_shiguang_top(1, 10)
     # 获取5个最新上映的电影
-    data['movie_douban_new'] = get_movie_douban_new()
+    data['movie_shiguang_new'] = get_movie_shiguang_new()
     data['movie_index_tag'] = [{"tag": "", "data": []} for _ in range(4)]
     if user_id == 2:
         data['movie_index_tag'] = data['movie_nav_tag']
@@ -93,12 +92,6 @@ def register(request):
     return render(request, 'register.html', {"page": "register.html", "data": data})
 
 
-# 分类
-def category(request):
-    data = page_nav(request)
-    return render(request, 'category.html', {"page": "category.html", "data": data})
-
-
 # 搜索
 def search(request):
     data = page_nav(request)
@@ -134,7 +127,6 @@ def movie(request):
     # 电影信息
     data["movie_data"] = movie_search_by_id(movie_id)
     data["movie_5_cai"] = get_movie_5_cai(movie_id)
-    # data["movie_data"] = movie_search_by_web(request.GET.get("id"))
     if not data['movie_data']:
         return render(request, 'tempate.html', {"tip": "电影信息无效，不存在有关信息！", "url": "/", "time": 3,
                                                 "title": "错误页面", "data": data})
@@ -291,7 +283,7 @@ def page_nav(request):
         # 获取用户最近浏览的5部电影
         rs["user_5_brow"] = get_user_movie_5_brow(user_id)
         # 获取系统推荐的5部电影
-        # rs["user_5_cai"] = get_movie_douban_top(1, 5)
+        # rs["user_5_cai"] = get_movie_shiguang_top(1, 5)
         rs["user_5_cai"] = get_user_movie_5_cai(user_id)
     else:
         rs["user_like"] = []
