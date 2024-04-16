@@ -1,4 +1,6 @@
 {% load set_var  %}
+
+{# left图标 和 right标题 #}
 <div id="nav">
     <div id="nav-left" style="width:15%;float:left;height:50px;">
         <a href="/" target="_black">
@@ -14,53 +16,65 @@
             <input type="hidden" value="{{ request.session.user_id }}" name="user_id" />
         </div>
 
+{# 导航栏电影分类标签 #}
 {% for tag in data.movie_nav_tag %}
         <div class="nav-content">
             <div class="h1 clear"><a href="/search.html?type=tag&s={{ tag.tag }}"><h1>{{ tag.tag }}</h1></a></div>
             <div class="nav-meun">
-                <div class="bt_img mi_ne_kd leibox nav-show" id="movie_nav_tag_{{ forloop.counter }}">
-
-                </div>
+                <div class="bt_img mi_ne_kd leibox nav-show" id="movie_nav_tag_{{ forloop.counter }}"> </div>
             </div>
         </div>
 {% endfor %}
         <script type="text/javascript">
             let movie_nav_tag = {{ data.movie_nav_tag|safe|default:"[]" }};
         </script>
-        <div class="nav-content">
-            <div class="souuo"><div id="sosuobox"><form action="/search.html" class="w-search-form show_hidden" style="margin-top: 4px;"><input type="hidden" value="all" name="type" /><input type="text" value="" id="s" name="s" placeholder="电影名称/类型/语言/年份/国家" class="soiput"> <button type="submit" class="souicon"><i class="fa-search fa"></i></button></form></div></div>
+
+{# 搜索栏 #}
+<div class="nav-content">
+    <div class="souuo">
+        <div id="sosuobox">
+            <form action="/search.html" class="w-search-form show_hidden" style="margin-top: 4px;">      {# 搜索栏表单数据 #}
+                <input type="hidden" value="all" name="type" />                             {# 隐藏输入框，提交数据用，value=all为全局搜索 #}
+                <input type="text" value="" id="s" name="s" placeholder="电影名称/类型/语言/年份/国家" class="soiput">      {# 预显示文字 #}
+                <button type="submit" class="souicon">     {# 放大镜提交按钮 #}
+                    <i class="fa-search fa"></i>
+                </button>
+            </form>
         </div>
-        <div class="nav-content">
-            <script type="text/javascript">
-                let user_like = {{ data.user_like|safe|default:"[]" }};
-                let user_5_like = {{ data.user_5_like|safe|default:"[]" }};
-                let user_5_brow = {{ data.user_5_brow|safe|default:"[]" }};
-                let user_5_cai = {{ data.user_5_cai|safe|default:"[]" }};
-            </script>
-            <div class="history" > <i class="clock outline icon"></i>
-                <div class="menu" tabindex="-1"></div>
+    </div>
+</div>
+<div class="nav-content">
+    <script type="text/javascript">
+        let user_like = {{ data.user_like|safe|default:"[]" }};
+        let user_5_like = {{ data.user_5_like|safe|default:"[]" }};
+        let user_5_brow = {{ data.user_5_brow|safe|default:"[]" }};
+        let user_5_cai = {{ data.user_5_cai|safe|default:"[]" }};
+    </script>
+    <div class="history" > <i class="clock outline icon"></i>
+        <div class="menu" tabindex="-1"></div>
+    </div>
+    <div class="nav-meun">
+        <div class="nav-histroy">
+            <h1 class="title">历史浏览记录</h1>
+
+            <div id="user_5_brow" class="bt_img mi_ne_kd leibox history-show">
+
             </div>
-            <div class="nav-meun">
-                <div class="nav-histroy">
-                    <h1 class="title">历史浏览记录</h1>
+            <h1 class="title like-show"><a href="/userCollection.html" >收藏记录</a></h1>
 
-                    <div id="user_5_brow" class="bt_img mi_ne_kd leibox history-show">
+            <div id="user_5_like" class="bt_img mi_ne_kd leibox history-show like-show">
 
-                    </div>
-                    <h1 class="title like-show"><a href="/userCollection.html" >收藏记录</a></h1>
+            </div>
+            <h1 class="title cai-show">猜你喜欢</h1>
 
-                    <div id="user_5_like" class="bt_img mi_ne_kd leibox history-show like-show">
-
-                    </div>
-                    <h1 class="title cai-show">猜你喜欢</h1>
-
-                    <div id="user_5_cai" class="bt_img mi_ne_kd leibox history-show cai-show">
-                        <h1 style="width: 100px;text-align: center;">无信息</h1>
-                    </div>
-                </div>
+            <div id="user_5_cai" class="bt_img mi_ne_kd leibox history-show cai-show">
+                <h1 style="width: 100px;text-align: center;">无信息</h1>
             </div>
         </div>
+    </div>
+</div>
 
+{#  用户个人中心  #}
 {% if request.session.is_login %}
         <div class="nav-content" style="margin-left:10px;">
             <div class="btn-group">

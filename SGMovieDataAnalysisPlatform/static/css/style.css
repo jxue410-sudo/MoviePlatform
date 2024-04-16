@@ -282,6 +282,7 @@ top, from(#8a5fe9), color-stop(0.25, #8a8ded), color-stop(0.5, #b083ed), color-s
 .nav-content h1 a{
     text-decoration: none;
 }
+/* 历史记录 猜你喜欢 等下滑面板区域 */
 .nav-meun {
     position:absolute;
     left:0%;
@@ -312,24 +313,7 @@ top, from(#8a5fe9), color-stop(0.25, #8a8ded), color-stop(0.5, #b083ed), color-s
     /*display:none;*/
     /*visibility: hidden;*/
 }
-/*.nav-meun{*/
-/* padding:2em 0;*/
-/*width:100%;*/
-/* position:absolute;*/
-/* top:-0px;*/
-/*overflow:hidden;*/
-/* transition:all .25s ease-in-out;*/
-/* background: rgba(0,0,0,0.2);*/
-/* -webkit-box-shadow:0 6px 12px #838383;*/
-/* -moz-box-shadow:0 6px 12px #838383;*/
-/* box-shadow:0 10px 20px rgba(0, 0, 0, 0.63); */
-/* height:236px;*/
-/* display:none;*/
-/*}*/
-/*.h1:hover +.nav-meun:after{*/
-/* transform:translateY(-100%);*/
-/* transition:all .5s;*/
-/*}*/
+
 .nav-meun:hover {
     background: rgba(241, 241, 241, 0.9);
     /*transform:translateY(-100%);*/
@@ -341,12 +325,15 @@ top, from(#8a5fe9), color-stop(0.25, #8a8ded), color-stop(0.5, #b083ed), color-s
     -o-transition:all .5s;
     /* Opera */
 }
+
+/* 悬停在父区域nav-content时，nav-menu的样式 */
 .nav-content:hover .nav-meun {
+    background: rgba(241, 241, 241, 0.9);
     /*display:block;*/
     height:300px;
     padding:2em 0;
     /*top: 50px;*/
-    transition:all .5s;
+    transition:all .5s;         /* 平滑过度 */
     -moz-transition:all .5s;
     /* Firefox 4 */
     -webkit-transition:all .5s;
