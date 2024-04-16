@@ -198,7 +198,7 @@ top, from(#8a5fe9), color-stop(0.25, #8a8ded), color-stop(0.5, #b083ed), color-s
     position:absolute;
     top:5px;
     right:0px;
-    left:250px;
+    left:220px;
     overflow:hidden;
     background:url(../images/icon.ico) no-repeat center content-box;
     background-size:cover;
