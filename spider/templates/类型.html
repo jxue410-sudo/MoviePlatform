@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>电影类型统计</title>
+    <!-- 引入 ECharts -->
+    <script src="/static/js/echarts.min.js"></script>
+</head>
+<body>
+
+<div id="bar-chart" style="height: 600px;"></div>
+<script >
+    // 初始化 ECharts 实例
+    var myChart = echarts.init(document.getElementById('bar-chart'));
+
+    // 读取 CSV 文件
+    function readCSV(callback) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === XMLHttpRequest.DONE && xhr.status === 200) {
+                callback(xhr.responseText);
+            }
+        };
+        xhr.open('GET', '/csv_files/movies_count_by_genre.csv', true);
+        xhr.send();
+    }
+
+    // 处理 CSV 数据并绘制直方图
+    readCSV(function (csvData) {
+        // 解析 CSV 数据
+        var lines = csvData.split('\n');
+        var genres = [];
+        var counts = [];
+
+        // 遍历每一行数据
+        for (var i = 1; i < lines.length; i++) {
+            var parts = lines[i].split(',');
+            genres.push(parts[0]);
+            counts.push(parseInt(parts[1]));
+        }
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: '电影类型统计',
+                left: 'center'
+            },
+            tooltip: {
+                trigger: 'axis',
+                axisPointer: {
+                    type: 'shadow'
+                }
+            },
+            xAxis: {
+                type: 'category',
+                data: genres,
+                axisLabel: {
+                    interval: 0,
+                    rotate: 45
+                }
+            },
+            yAxis: {
+                type: 'value',
+                name: '电影数量'
+            },
+            series: [{
+                data: counts,
+                type: 'bar',
+                itemStyle: {
+                    color: '#3398DB'
+                },
+                label: {
+                    show: true, // 显示标签
+                    position: 'top', // 在顶部显示
+                    formatter: '{c}' // 数据格式
+                }
+            }]
+        };
+
+        // 使用刚指定的配置项和数据显示图表
+        myChart.setOption(option);
+    });
+</script>
+</body>
+</html>

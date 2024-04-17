@@ -17,10 +17,13 @@ def split1():
             director_info = json.loads(director_info_str)  # 将 JSON 字符串解析为字典
             director_name = director_info.get('导演名称', '')
             director_english_name = director_info.get('导演英文名称', '')
-            if director_name.strip() or director_english_name.strip():  # 至少有一个不为空
-                combined_name = f"{director_name} ({director_english_name})"  # 组合中文名称和英文名称
+            if director_name==None:
+                combined_name = "无名氏"
             else:
-                combined_name = "无名氏"  # 中英文名称均为空，记录为“无名氏”
+                if director_english_name.strip() or director_name.strip():  # 至少有一个不为空
+                    combined_name = f"{director_name} ({director_english_name})"  # 组合中文名称和英文名称
+                else:
+                    combined_name = "无名氏"  # 中英文名称均为空，记录为“无名氏”
             directors_info[combined_name] += 1
         except json.JSONDecodeError:
             print("Error decoding JSON:", director_info_str)

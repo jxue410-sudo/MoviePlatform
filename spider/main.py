@@ -11,7 +11,6 @@ import 分割演员
 import 各个类型的电影
 import 各个地区各个类型的电影
 
-
 def fetch_data(url, headers, retries=5, timeout=30):
     for _ in range(retries):
         try:
@@ -29,7 +28,7 @@ if __name__ == '__main__':
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36"
     }
 
-    random_numbers = random.sample(range(20000, 99999), 50)
+    random_numbers = random.sample(range(20000, 99999), 10)
 
     # 构建URL列表
     urls = [
@@ -143,3 +142,7 @@ if __name__ == '__main__':
     分割演员.split2()
     各个地区各个类型的电影.count1()
     各个类型的电影.count2()
+
+
+
+
