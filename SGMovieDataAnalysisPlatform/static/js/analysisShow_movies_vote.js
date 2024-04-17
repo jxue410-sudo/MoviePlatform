@@ -21,8 +21,18 @@ fetch('../static/json/movies_vote.json')
         var myChart = echarts.init(document.getElementById('chart_movieVote'));
 
         var option = {
-            xAxis: {},
-            yAxis: {},
+            title: {
+                text: '评分和产量关系', // 标题内容
+                left: 'center'
+            },
+            xAxis: {
+                name: '产量 (单位)',
+                type: 'value'
+            },
+            yAxis: {
+                name: '评分',
+                type: 'value'
+            },
             tooltip: { // 设置 tooltip
                 formatter: function (params) {
                     return params.value[2] + '，产量: ' + params.value[0] + ' - 评分: ' + params.value[1];
