@@ -26,7 +26,8 @@ fetch('../static/json/date_vote.json')
         // 配置项
         const options = {
             title: {
-                text: '电影评分与时间关系图'
+                text: '电影评分与时间关系图',
+                left: 'center'
             },
             xAxis: {
                 type: 'time',
@@ -57,7 +58,7 @@ fetch('../static/json/date_vote.json')
                     // 根据评分调整散点大小
                     return Math.sqrt(data[1]) * 3;
                 },
-                color: 'rgba(9,189,16,0.5)'
+                color: 'rgba(9,189,16,0.2)'
             }]
         };
 

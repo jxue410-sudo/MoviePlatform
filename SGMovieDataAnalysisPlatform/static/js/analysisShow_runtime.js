@@ -15,10 +15,13 @@ var option = {
         {
             name: '数量',
             type: 'pie',
-            radius: [20, 140],
+            radius: [20, 90],
             roseType:'radius',
             itemStyle: {
                 borderRadius: 5
+            },
+             label: {
+                length: 4, // 设置标签线的长度
             },
             data: [
                 {value: 111, name: '101 min.'},

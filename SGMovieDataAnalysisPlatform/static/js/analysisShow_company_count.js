@@ -28,21 +28,27 @@ fetch('static/json/movies_vote.json')
         // 配置图表
         var option = {
             title: {
-                text: '生产电影最多的 10 大公司'
+                text: '生产电影最多的 10 大公司',
+                left: 'center'
             },
             tooltip: {},
             xAxis: {
                 data: companies,
                 axisLabel: {
                     interval: 0, // 让所有的下标都显示
-                    rotate: -45 // 如果下标文字过长，可以尝试旋转角度
+                    rotate: -30 // 如果下标文字过长，可以尝试旋转角度
                 }
             },
             yAxis: {},
             series: [{
                 name: '数量',
                 type: 'bar',
-                data: counts
+                data: counts,
+                itemStyle: {
+                    normal: {
+                        color: 'rgb(131,5,19)'
+                    }
+                }
             }]
         };
 

@@ -27,24 +27,29 @@ fetch('../static/json/movies_vote.json')
             },
             xAxis: {
                 name: '产量 (单位)',
-                type: 'value'
+                type: 'value',
+                max: 110
             },
             yAxis: {
                 name: '评分',
-                type: 'value'
+                type: 'value',
+                min: 2
             },
             tooltip: { // 设置 tooltip
                 formatter: function (params) {
                     return params.value[2] + '，产量: ' + params.value[0] + ' - 评分: ' + params.value[1];
                 }
             },
-            series: [
-                {
-                    symbolSize: 10,
-                    data: dataArray,
-                    type: 'scatter'
+            series: [{
+                symbolSize: 10,
+                data: dataArray,
+                type: 'scatter',
+                itemStyle: {
+                    normal: {
+                        color: 'rgba(241,112,20,0.3)'
+                    }
                 }
-            ]
+            }]
         };
         // 使用刚指定的配置项和数据显示图表。
         myChart.setOption(option);
