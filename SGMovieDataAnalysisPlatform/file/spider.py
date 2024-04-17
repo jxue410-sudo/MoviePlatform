@@ -4,6 +4,12 @@ import threading
 import json
 from requests.exceptions import RequestException
 from datetime import datetime
+import random
+import os
+import 分割导演
+import 分割演员
+import 各个类型的电影
+import 各个地区各个类型的电影
 
 
 def fetch_data(url, headers, retries=5, timeout=30):
@@ -23,10 +29,12 @@ if __name__ == '__main__':
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36"
     }
 
+    random_numbers = random.sample(range(20000, 99999), 50)
+
+    # 构建URL列表
     urls = [
         "http://front-gateway.mtime.com/library/movie/detail.api?tt=1712711802529&movieId={}&locationId=290".format(i)
-        for i in range(20000, 20100)##爬取的数量
-        ##爬取的数量10000---99999
+        for i in random_numbers
     ]
 
     results = []
@@ -42,9 +50,10 @@ if __name__ == '__main__':
 
     movies_info = []  # 存储电影信息的列表
     actors_info = {}  # 存储演员信息的字典，以电影名称和年份作为键
-
     for result in results:
-        if result and 'data' in result:
+        if result is not None and isinstance(result, dict) and 'data' in result and isinstance(result['data'],
+                                                                                               dict) and 'basic' in \
+                result['data']:
             movie_data = result['data']['basic']
 
             # 提取导演信息
@@ -66,7 +75,8 @@ if __name__ == '__main__':
             actor_data = movie_data.get('actors', [])
             movie_name = movie_data.get('name', '')
             movie_year = movie_data.get('releaseDate', '')[:4] if movie_data.get('releaseDate') else None
-            actors_info_key = (movie_name, movie_year)
+            movie_en = movie_data.get('nameEn', '')
+            actors_info_key = (movie_name, movie_en, movie_year)
             actors_info[actors_info_key] = []
 
             for actor in actor_data:
@@ -100,20 +110,36 @@ if __name__ == '__main__':
 
             # 将电影信息加入列表
             movies_info.append(movie_info)
-
-    # 将电影信息写入CSV文件
-    with open('movies_info.csv', 'w', newline='', encoding='utf-8') as f:
+    folder_name = "csv_files"
+    os.makedirs(folder_name, exist_ok=True)
+    # 电影信息写入CSV文件
+    movies_info_file = os.path.join(folder_name, 'movies_info.csv')
+    with open(movies_info_file, 'w', newline='', encoding='utf-8') as f:
         writer = csv.DictWriter(f, fieldnames=movies_info[0].keys())
         writer.writeheader()
         writer.writerows(movies_info)
 
-    # 将演员信息写入CSV文件
-    with open('actors_info.csv', 'w', newline='', encoding='utf-8') as f:
-        writer = csv.DictWriter(f, fieldnames=['电影名称', '年份', '演员信息'])
+    # 演员信息写入CSV文件
+    actors_info_file = os.path.join(folder_name, 'actors_info.csv')
+    with open(actors_info_file, 'w', newline='', encoding='utf-8') as f:
+        writer = csv.DictWriter(f, fieldnames=['电影名称', '英文名称', '年份', '演员信息'])
         writer.writeheader()
         for key, value in actors_info.items():
-            movie_name, movie_year = key
-            writer.writerow({'电影名称': movie_name, '年份': movie_year, '演员信息': json.dumps(value, ensure_ascii=False)})
+            movie_name, movie_en, movie_year = key
+            # 检查电影名称和年份是否为空，设置为None
+            if not movie_name:
+                movie_name = None
+            if not movie_year:
+                movie_year = None
+            if not movie_en:
+                movie_en = None
+            writer.writerow(
+                {'电影名称': movie_name, '英文名称': movie_en, '年份': movie_year,
+                 '演员信息': json.dumps(value, ensure_ascii=False)})
 
-    print("电影信息已保存到 movies_info.csv 文件中。")
-    print("演员信息已保存到 actors_info.csv 文件中。")
+    print("电影信息已保存到", movies_info_file)
+    print("演员信息已保存到", actors_info_file)
+    分割导演.split1()
+    分割演员.split2()
+    各个地区各个类型的电影.count1()
+    各个类型的电影.count2()
