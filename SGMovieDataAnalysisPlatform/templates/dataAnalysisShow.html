@@ -5,26 +5,132 @@
         <title>时光网电影大数据分析平台</title>
         {% include "include/head.html" %}
         <script src="/static/js/echarts.min.js"></script>
+
+
     </head>
 
+{#    <body style="background: url(/static/images/bg.jpg)">#}
     <body class="home">
+
         {% include "include/nav.html" %}
         <div id="main">
-            {% include "include/tag.html" %}
+        {% include "include/tag.html" %}
 
-            {#  白色显示区域 #}
-            <div class="mikd">
-                <div class="mi_btcon" style="padding: 20px;">
-                    <h2 style="font-size: 1.35em;">{{ title }}</h2>
+        <section class = "show_mainbox">
 
-
-                    <div id="chart" style="width: 800px; height: 600px;"></div>
-                   <script src="/static/js/analysisShow_budget.js"> </script>
-
-
-
+            {# 左侧第一列 #}
+            <div class="column" style="width: 400px;">
+                {# 预算分布图 -cqz #}
+                <div class="show_panel" style="width: 400px; height: 300px;">
+                    <div id="chart_budget" style="width: 400px; height: 300px;"></div>
+                <div class="show_panel-footer"></div>   <!-- 下边两个小边框 -->
                 </div>
+
+                {# 预算与票房关系图 -cqz #}
+                <div class="show_panel" style="width: 400px; height: 300px;">
+                    <div id="chart_budgetRevenue" style="width: 400px; height: 300px;"></div>
+                <div class="show_panel-footer"></div>   <!-- 下边两个小边框 -->
+                </div>
+
+                 {# 电影评分与时间关系图 -hx #}
+                <div class="show_panel" style="width: 400px; height: 300px;">
+                    <div id="chart_dateVote" style="width: 400px; height: 300px;"></div>
+                <div class="show_panel-footer"></div>   <!-- 下边两个小边框 -->
+                </div>
+
             </div>
+
+
+
+            {# 中间第二列 #}
+            <div class="column" style="width: 550px;">
+                {# 电影类型数量分析 -hx #}
+                <div class="show_panel" style="width: 550px; height: 400px;">
+                    <div id="chart_genres" style="width: 550px; height: 400px;"></div>
+                <div class="show_panel-footer"></div>   <!-- 下边两个小边框 -->
+                </div>
+
+                {# 电影人气与评分关系散点图 -xj #}
+                <div class="show_panel" style="width: 550px; height: 400px;">
+                    <div id="chart_popVote" style="width: 550px; height: 400px;"></div>
+                <div class="show_panel-footer"></div>   <!-- 下边两个小边框 -->
+                </div>
+
+                {# 生产电影最多的十大公司 -xj #}
+                <div class="show_panel" style="width: 550px; height: 400px;">
+                    <div id="chart_CompanyCount" style="width: 550px; height: 400px;"></div>
+                <div class="show_panel-footer"></div>   <!-- 下边两个小边框 -->
+                </div>
+
+            </div>
+
+            {# 右侧第三列 #}
+            <div class="column" style="width: 400px;">
+                {# 电影时长分布图 -xyt #}
+                <div class="show_panel" style="width: 400px; height: 300px;">
+                    <div id="chart_runTime" style="width: 400px; height: 300px;"></div>
+
+                <div class="show_panel-footer"></div>   <!-- 下边两个小边框 -->
+                </div>
+
+                 {# 公司电影产量和电影评分 散点图 -syf #}
+                <div class="show_panel" style="width: 400px; height: 300px;">
+                    <div id="chart_movieVote" style="width: 400px; height: 300px;"></div>
+
+                <div class="show_panel-footer"></div>   <!-- 下边两个小边框 -->
+                </div>
+
+                {# 各语言占比饼图 -syf #}
+                <div class="show_panel" style="width: 400px; height: 300px;">
+                    <div id="chart_Top10Language" style="width: 400px; height: 300px;"></div>
+
+                <div class="show_panel-footer"></div>   <!-- 下边两个小边框 -->
+                </div>
+
+
+                {# 预算与评分关系图 -xyt #}
+                <div class="show_panel" style="width: 400px; height: 300px;">
+                    <div id="chart_budgetVote" style="width: 400px; height: 300px;"></div>
+
+                <div class="show_panel-footer"></div>   <!-- 下边两个小边框 -->
+                </div>
+
+            </div>
+
+            <script src="/static/js/analysisShow_budget.js"> </script>
+            <script src="/static/js/analysisShow_budget_revenue.js"> </script>
+            <script src="/static/js/analysisShow_date_vote.js"> </script>
+            <script src="/static/js/analysisShow_genres.js"> </script>
+            <script src="/static/js/analysisShow_company_pop_vote.js"> </script>
+            <script src="/static/js/analysisShow_company_count.js"> </script>
+            <script src="/static/js/analysisShow_runtime.js"> </script>
+            <script src="/static/js/analysisShow_movies_vote.js"> </script>
+            <script src="/static/js/analysisShow_Top10_language.js"> </script>
+            <script src="/static/js/analysisShow_budget_vote.js"> </script>
+        </section>
+
+
+{#            <div id="chart_budgetVote" style="width: 400px; height: 300px;"></div>#}
+{#            <script src="/static/js/analysisShow_budget_vote.js"> </script>#}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         </div>
 
