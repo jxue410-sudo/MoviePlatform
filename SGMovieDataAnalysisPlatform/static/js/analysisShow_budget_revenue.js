@@ -43,7 +43,7 @@ fetch('../static/json/budget_revenue.json')
         },
         series: [{
             type: 'scatter',
-            symbolSize: 10,
+            symbolSize: 8,
             data: budgets.map((budget, index) => [budget, boxOffices[index]]),
             label: {
                 emphasis: {

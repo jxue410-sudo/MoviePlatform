@@ -1,6 +1,8 @@
 {# 首页电影图片轮播 #}
 
 <div id="focus">
+
+    {#显示图片、左右切换按钮#}
     <div class="photo">
         <ul id="tupian">
             {% for focus in data.index_focus %}
@@ -12,6 +14,8 @@
         <span class="slider" id="prev"></span>
         <span class="slider" id="next"></span>
     </div>
+
+    {# 点击切换图片 #}
     <div class="carousel-indicators">
         <ul id="touch-slider">
             {% for focus in data.index_focus %}
