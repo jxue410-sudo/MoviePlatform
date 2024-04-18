@@ -10,7 +10,10 @@ import 分割导演
 import 分割演员
 import 各个类型的电影
 import 各个地区各个类型的电影
+import convert_to_json
 
+
+# define number 10
 def fetch_data(url, headers, retries=5, timeout=30):
     for _ in range(retries):
         try:
@@ -142,7 +145,4 @@ if __name__ == '__main__':
     分割演员.split2()
     各个地区各个类型的电影.count1()
     各个类型的电影.count2()
-
-
-
-
+    convert_to_json.convert_to_json()
