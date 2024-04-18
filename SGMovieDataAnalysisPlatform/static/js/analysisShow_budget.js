@@ -9,7 +9,7 @@ fetch('../static/json/budget.json')
 
     // 提取预算和数量
     const budgets = top10Data.map(item => item.budget / 100000);
-    const counts = top10Data.map(item => item.count);
+    const counts = top10Data.map(item => item.count * 10);
 
     // 初始化echarts实例
     const myChart = echarts.init(document.getElementById('chart_budget'));
