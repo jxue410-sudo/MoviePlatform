@@ -4,7 +4,7 @@ var myChart = echarts.init(document.getElementById('chart_runTime'));
 // 指定图表的配置项和数据
 var option = {
     title: {
-        text: '电影时长分布 (只展示时长大于100min的)',
+        text: '电影时长分布 (只展示时长大于90min的)',
         left: 'center'
     },
     tooltip: {
