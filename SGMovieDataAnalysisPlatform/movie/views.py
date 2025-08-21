@@ -65,8 +65,7 @@ class MovieLike(APIView):
             return JsonError("请先登录！")
         try:
             movie_id = int(request.GET.get("movieId"))
-            if not movie_id:
-                raise Exception
+            if not movie_id: raise Exception
         except:
             return JsonError("请确认请求参数无误！")
         user_id = request.session.get("user_id")
@@ -86,9 +85,10 @@ class MovieLike(APIView):
                 tag_thread_work("user_like_tag", user_id=user_id, movie_id=movie_id, tag_sign="init")
                 MovieLikes.objects.create(user_id=user_id, movie_id=movie_id, status=1)
                 msg = "收藏成功！"
-            else:
-                return JsonError("电影信息不存在，收藏失败！")
+            else:return JsonError("电影信息不存在，收藏失败！")
         return JsonResponse({"msg": msg, "url": ""})
+
+
 
     def post(self, request, *args, **kwargs):
         return JsonError("不支持POST请求！")
